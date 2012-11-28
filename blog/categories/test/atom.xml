@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Test | My Octopress Blog]]></title>
   <link href="http://eskerber.github.com/blog/categories/test/atom.xml" rel="self"/>
   <link href="http://eskerber.github.com/"/>
-  <updated>2012-11-28T08:32:08-06:00</updated>
+  <updated>2012-11-28T08:33:08-06:00</updated>
   <id>http://eskerber.github.com/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -18,7 +18,7 @@
     <link href="http://eskerber.github.com/blog/2012/11/28/title/"/>
     <updated>2012-11-28T08:21:00-06:00</updated>
     <id>http://eskerber.github.com/blog/2012/11/28/title</id>
-    <content type="html"><![CDATA[<p>Liquid error: ClassNotFound: no lexer for alias 'C' found</p>
+    <content type="html"><![CDATA[<p>Liquid error: ClassNotFound: no lexer for alias 'CSharp' found</p>
 ]]></content>
   </entry>
   
