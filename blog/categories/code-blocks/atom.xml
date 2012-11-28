@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Code Blocks | My Octopress Blog]]></title>
   <link href="http://eskerber.github.com/blog/categories/code-blocks/atom.xml" rel="self"/>
   <link href="http://eskerber.github.com/"/>
-  <updated>2012-11-28T08:52:33-06:00</updated>
+  <updated>2012-11-28T08:55:45-06:00</updated>
   <id>http://eskerber.github.com/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -19,7 +19,7 @@
     <updated>2012-11-28T08:21:00-06:00</updated>
     <id>http://eskerber.github.com/blog/2012/11/28/title</id>
     <content type="html"><![CDATA[<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='objc'><span class='line'><span class="p">[</span><span class="n">rectangle</span> <span class="nl">setX:</span> <span class="mi">10</span> <span class="nl">y:</span> <span class="mi">10</span> <span class="nl">width:</span> <span class="mi">20</span> <span class="nl">height:</span> <span class="mi">20</span><span class="p">];</span>
+</pre></td><td class='code'><pre><code class='csharp'><span class='line'><span class="kt">var</span> <span class="n">a</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Object</span><span class="p">();</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 ]]></content>
   </entry>
