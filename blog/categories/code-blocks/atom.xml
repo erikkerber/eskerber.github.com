@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
-  <link href="http://eskerber.github.com/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Code Blocks | My Octopress Blog]]></title>
+  <link href="http://eskerber.github.com/blog/categories/code-blocks/atom.xml" rel="self"/>
   <link href="http://eskerber.github.com/"/>
   <updated>2012-11-28T08:32:08-06:00</updated>
   <id>http://eskerber.github.com/</id>
@@ -18,7 +18,7 @@
     <link href="http://eskerber.github.com/blog/2012/11/28/title/"/>
     <updated>2012-11-28T08:21:00-06:00</updated>
     <id>http://eskerber.github.com/blog/2012/11/28/title</id>
-    <content type="html"><![CDATA[<p>Liquid error: ClassNotFound: no lexer for alias &#8216;C&#8217; found</p>
+    <content type="html"><![CDATA[<p>Liquid error: ClassNotFound: no lexer for alias 'C' found</p>
 ]]></content>
   </entry>
   
