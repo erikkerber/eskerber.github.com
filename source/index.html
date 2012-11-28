@@ -1,29 +1,270 @@
----
-layout: default
----
 
-<div class="blog-index">
-  {% assign index = true %}
-  {% for post in paginator.posts %}
-  {% assign content = post.content %}
-    <article>
-      {% include article.html %}
-    </article>
-  {% endfor %}
-  <div class="pagination">
-    {% if paginator.next_page %}
-      <a class="prev" href="{{paginator.next_page}}">&larr; Older</a>
-    {% endif %}
-    <a href="/blog/archives">Blog Archives</a>
-    {% if paginator.previous_page %}
-    <a class="next" href="{{paginator.previous_page}}">Newer &rarr;</a>
-    {% endif %}
-  </div>
-</div>
-<aside class="sidebar">
-  {% if site.blog_index_asides.size %}
-    {% include_array blog_index_asides %}
-  {% else %}
-    {% include_array default_asides %}
-  {% endif %}
-</aside>
+<!doctype html>
+<html>
+  <head>
+    <title>Erik Kerber</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Erik Kerber - Software Engineer">
+    <meta name="author" content="Erik Kerber">
+
+    <!--<link href='http://fonts.googleapis.com/css?family=Nobile:400,400italic' rel='stylesheet' type='text/css'>-->
+
+    <script src='javascripts/jquery.min.js'></script>
+    <script src='javascripts/jquery-ui.min.js'></script>
+
+    <script src='javascripts/jquery.fancybox-1.3.4.pack.js'></script>
+    <link rel="stylesheet" type="text/css" href="stylesheets/jquery.fancybox-1.3.4.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/osx.css">
+
+    <script>
+			function hideExpandAll() {
+				$(".expandall").animate({ bottom: "-70px"}, 1000, function() {
+			    $(".expandall").fadeOut();
+			  });
+			}
+
+			function hideExplanation() {
+				$(".explanation").animate({ bottom: "-70px"}, 1000, function() {
+          $(".explanation").fadeOut();
+        });
+			}
+
+			$(function() {
+        var expansionCount = 0;
+				var explanationIsVisible = true, expandAllIsVisible = false;
+
+        function expando($elem) {
+          $elem.find("a[href]:not(.skipRewrite)").attr("target", "_blank").addClass("external").each(function() {
+//            $(this).append("<img src='linkout_icon.png' border=0 class='linkIndicator'/>");
+          });
+          $elem.find(".expando").each(function() {
+            var initial = $(this).children(".initial").show();
+            var expanded = $(this).children(".expanded").hide();
+            if (initial.children("a").length) {
+							var scope = initial.children("a");
+						} else {
+							var scope = initial.wrap("<a>").parent();
+              initial = initial.parent();
+						}
+
+						var expand = function(force) {
+							scope.addClass('activated');
+              initial.hide();
+              if (expanded.data("callback")) {
+                callbacks[expanded.data("callback")](expanded);
+              }
+              expanded.show();
+
+              expanded.css("color", "#EF7A28").animate({ color: "#787387" }, 2000);
+              expanded.children(".break").animate({ marginBottom: "25px" }, 300);
+
+							if (!force && !scope.closest(".explanation").length) {
+	              expansionCount++;
+
+	              if (explanationIsVisible && expansionCount > 2) {
+									hideExplanation();
+									explanationIsVisible = false;
+	              } else if (!expandAllIsVisible && expansionCount > 6) {
+	                $(".expandall").animate({ bottom: "0px"}, 1000);
+									expandAllIsVisible = true;
+								} else if (expandAllIsVisible) {
+									if (!$(".wrapper .expander:not(.activated)").length) {
+										hideExpandAll();
+									}
+								}
+							}
+						};
+
+						scope.addClass("expander").data("expand", expand).click(function() {
+							expand();
+							return false;
+						});
+          });
+        }
+
+        var callbacks = {
+          resetExplanation: function() {
+            $(".explanation").find(".initial").each(function() {
+              $(this).show();
+              $(this).parent("a").show();
+            });
+            $(".explanation").find(".expanded").hide();
+          }
+        };
+
+				if (navigator.platform.indexOf("iPhone") == -1) {
+	        $(".showAnts, .showContact").fancybox({
+	          width: 820,
+	          height: 600,
+	          type: 'iframe'
+	        });
+				}
+
+				$(".expandall a").click(function() {
+					$(".expander:not(.activated)").each(function() { $(this).data("expand") && $(this).data("expand")(true); });
+					hideExpandAll();
+					return false;
+				});
+
+        expando($(".start"));
+        expando($(".explanation"));
+        $(".wrapper, .explanation").fadeIn();
+      });
+		</script>
+    <link rel="stylesheet" type="text/css" href="stylesheets/expando.css" />
+    <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-7504253-2']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+  </head>
+
+  <body>
+    <div class='wrapper' style="display: none">
+        <div id="avatar">
+        <div class="ava-css">
+        	<img src="assets/mug.png">
+        </div>
+        </div>
+      <div class='title'>
+        <span class='firstLetter'>E</span>RIK <span class='firstLetter'>K</span>ERBER
+      </div>
+      
+      <div class='start'>
+        I'm a
+        <span class="expando">
+          <span class="initial"><a>Software Engineer</a></span>
+          <span class="expanded">Software Engineer with 7 years of development experience. I have a Bachelors of 
+            <span class="expando">
+              <span class="initial"><a>Computer Engineering,</a></span>
+              <span class="expanded">Computer Engineering from the University of Minnesota</span>
+            </span>
+            and am persuing a Masters of 
+            <span class="expando">
+              <span class="initial"><a>Software Engineering</a></span>
+              <span class="expanded">Software Engineering degree from the University of St. Thomas.</span>
+            </span>
+            <div class="break" style="margin-bottom: 25px; "></div>
+            Professionally, I work
+          </span>
+        </span>
+        at
+        <span class="expando">
+          <span class="initial"><a>Starkey Laboratories</a>, where I</span>
+          <span class="expanded">
+		        Starkey Laboratories (<a href="http://starkey.com">starkey.com</a>), an exciting technology company and the leading US hearing aid manufacturer in the US.
+            <div class="break" style="margin-bottom: 25px; "></div>
+            I
+          </span>
+        </span>
+
+        <span class="expando">
+          <span class="initial">develop <a>software solutions</a>.</span>
+          <span class="expanded">
+            develop software solutions
+            <span class="expando">
+              <span class="initial">ranging from <a>desktop software</a> to</span>
+              <span class="expanded">
+                including desktop software, primarily written using .NET, WPF, and the rest of the Microsoft stack. At Starkey Laboratories, I was heavily involved in Inspire OS (<a href=http://www.starkeypro.com/public/pdfs/Inspire_2012_Overview.pdf>Inspire</a>) <!--(<a href="http://www.starkeypro.com/public/professionals/products/software.jsp">Inspire</a>)-->, a large and full featured desktop application that enabled Audiologists to program our digital hearing aids, and fit them to the patient.
+                <div class="break" style="margin-bottom: 25px; "></div>
+                I also develop
+              </span>
+
+            </span>
+            
+            <span class="expando">
+              <span class="initial"><a>mobile applications</a>, and</span>
+              <span class="expanded">
+                mobile applications
+                <span class="expando">
+                  <span class="initial"><a>using an array of technologies</a>,</span>
+                  <span class="expanded">for iOS, Android, and Windows Phone. I've developed for iOS using native Objective-C, 
+                    <span class="expando">
+                      <span class="initial"><a>MonoTouch,</a></span>
+                      <span class="expanded">MonoTouch,</span>
+                    and PhoneGap.
+                  </span>
+                </span>
+                <div class="break" style="margin-bottom: 25px; "></div>
+                I've lightly toyed around with various 
+              </span>
+            </span>
+            <span class="expando">
+              <span class="initial"><a>web technologies </a></span>
+              <span class="expanded">
+                  web technologies, such as everyday HTML5/CSS/Javascript to coffeescript, and frameworks such as ASP.NET MVC3 to Ruby on Rails
+              </span>
+              .
+            </span>
+            <div class='break' style="margin-bottom: 25px; "></div>
+          </span>
+        </span>
+
+        I enjoy coding in 
+        <span class="expando">
+          <span class="initial"><a>several languages</a></span>
+          <span class="expanded">
+            C#, Objective-C, Python, Ruby, and Javascript. 
+            <div class='break'></div>
+            I view C# as the most complete, mature, full featured, and enjoyable language ever made, and is my favorite.
+            <div class='break'></div>
+             Python has always been my go-to dynamic language, though I'm trying to help Ruby catch up, and sometimes casually attend the <a href="ruby.mn">Ruby Users of Minnesota</a> group.
+                        
+            <div class='break'></div>
+          </span>
+        </span>
+        <span class="expando">
+          <span class="initial">and have a few <a>light projects</a> that strive for my short attention span.</span>
+          <span class="expanded">
+            A (small) collection of hobby apps I've worked on are:
+            <ul>
+              <li><a href="https://github.com/eskerber/Simple-GeoFence">Simple-Geofence</a> - A small demo app used as a proof of concept, leveraging iOS's CoreLocation framework.</li>
+              <li><a href="https://github.com/eskerber/StubScan">StubScan</a> - A web scraper that scans StubHub's API and stores game data on Amazon S3. A collection of Python scripts using mrjob queue Map/Reduce jobs on Amazon Elastic MapReduce.</li>
+              <li><a href="https://github.com/eskerber/GameDayTweets">GameDayTweets</a> - (School Project) Simple MLB oriented Twitter client that makes it simple to follow tweets based on an in-progress matchup of two teams.</li>
+            </ul>
+            <div class='break'></div>
+          </span>
+        </span>
+        </span>
+        I live in
+        <span class="expando">
+          <span class="initial"><a>always beautiful</a> Minneapolis.</span>
+          <span class="expanded">
+            <span class="expando">
+              <span class="initial"><a>sometimes warm</a> Minneapolis.</span>
+              <span class="expanded">Minneapolis, which is good for a few days in September.</span>
+            </span>
+          </span>
+        </span>
+		
+
+        <span class="expando">
+          <span class="initial">You can <a>contact</a> me in various ways.</span>
+          <span class="expanded">
+            You can <a href="http://twitter.com/erikkerber">@follow me on Twitter</a>, or visit me on <a href="http://www.linkedin.com/pub/erik-kerber/21/183/758">LinkedIn</a>. You can also <a href="mailto:erik.kerber@gmail.com">send an email</a>.
+          </span>
+        </span>
+
+      </div>
+    </div>
+    <div class='bottomBox expandall'>
+      <span class="expBox">
+				You can <a class='skipRewrite fakeExpander' href="#">expand everything</a> if you'd like.
+			</span>
+		</div>
+
+    <!--[if lt IE 7 ]>
+      <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+      <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+    <![endif]-->
+  </body>
+</html>
