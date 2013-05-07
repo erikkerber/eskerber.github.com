@@ -1,0 +1,33 @@
+[
+	{
+		genre: rock,
+		counts:
+		[
+			{ "year": 2005, "count":  91},
+			{ "year": 2006, "count":  81},
+			{ "year": 2007, "count":  71},
+			{ "year": 2008, "count":  61},
+		]
+	},
+	{
+		genre: rap,
+		counts:
+		[
+			{ "year": 2005, "count":  91},
+			{ "year": 2006, "count":  81},
+			{ "year": 2007, "count":  71},
+			{ "year": 2008, "count":  61},
+		]
+	},
+		{
+		genre: country,
+		counts:
+		[
+			{ "year": 2005, "count":  91},
+			{ "year": 2006, "count":  81},
+			{ "year": 2007, "count":  71},
+			{ "year": 2008, "count":  61},
+		]
+	}
+
+]

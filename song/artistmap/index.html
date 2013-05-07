@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Song Locations</title>
+    <script type="text/javascript" src="lib/protovis/protodata.js"></script>
+    <script type="text/javascript" src="polymaps.js"></script>
+    <script type="text/javascript" src="all-data.js"></script>
+    <script type="text/javascript" src="blues-data.js"></script>
+    <script type="text/javascript" src="rock-data.js"></script>
+    <script type="text/javascript" src="rap-data.js"></script>
+     <script type="text/javascript" src="country-data.js"></script>
+
+
+
+    <style type="text/css">
+
+@import url("lib/colorbrewer/colorbrewer.css");
+@import url("example.css");
+
+#map {
+  background: #E6E6E6;
+}
+
+.layer path {
+  fill: none;
+  stroke: #aaa;
+  stroke-width: .25px;
+  vector-effect: non-scaling-stroke;
+}
+
+#state path {
+  stroke: #fff;
+  stroke-width: 1.5px;
+  vector-effect: non-scaling-stroke;
+}
+
+#copy {
+  color: #000;
+  opacity: .5;
+}
+
+#copy a {
+  color: #000;
+}
+
+    </style>
+  </head>
+  <body id="map">
+    <script type="text/javascript" src="songs.js"></script>
+    <span id="copy">
+      <a href="index.html?genre=rap?color=orange">Rap</a>
+      <a href="index.html?genre=rock">Rock</a>
+      <a href="index.html?genre=blues&color=blue">Blues</a>
+      <a href="index.html?genre=country&color=red">Country</a>
+    </span>
+  </body>
+</html>
