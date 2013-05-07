@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Streamgraph</title>
+<style>
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: auto;
+  position: relative;
+  width: 960px;
+}
+
+button {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.axis path, .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+</style>
+<button onclick="transition()">Update</button>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="data.js"></script>
+<script>
+
+function getURLParameter(name) {
+    return decodeURI(
+        (RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
+    );
+}
+
+var max_year = getURLParameter("max");
+var min_year = getURLParameter("min");
+
+dataToUse = relativedata;
+for(var i = 0; i < dataToUse.length; i++)
+{
+  dataToUse[i].counts = dataToUse[i].counts.filter(function(item, i){
+  return item.year < max_year && item.year > min_year;
+});
+}
+
+var    stack = d3.layout.stack().offset("wiggle"),
+    layers0 = stack(d3.range(dataToUse.length).map(function(d,i) { 
+       return dataToUse[i].counts.map(function(v, j){
+          return {x: v.year, y: v.count, genre: dataToUse[i].genre};
+        }); 
+    }));
+
+
+
+var width = 960,
+    height = 500;
+
+var genres = []
+for (var i = 0; i < dataToUse.length - 1; i++) {
+  genres.push(dataToUse[i].genre)
+};
+
+//var x = d3.scale.linear()
+//    .domain([0, m - 1])
+//    .range([0, width]);
+
+var x = d3.scale.linear()
+    .domain([min_year - 1, max_year - 1])
+    .range([0, width]);
+
+var y = d3.scale.linear()
+    .domain([0, d3.max(layers0, function(layer) { return d3.max(layer, function(d) { 
+      return d.y0 + d.y; 
+    }); })])
+    .range([height, 0]);
+
+var xAxis = d3.svg.axis().scale(x).orient("top");
+
+var color = d3.scale.linear()
+    //.range(["#22d", "#556"]);
+    .range(["red", "blue"]);
+var area = d3.svg.area()
+    .x(function(d) { return x(d.x); })
+    .y0(function(d) { return y(d.y0); })
+    .y1(function(d) { return y(d.y0 + d.y); });
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+svg.selectAll("path")
+    .data(layers0)
+  .enter().append("path")
+    .attr("d", area)
+    .style("fill", function(d, i) { 
+      return color(i / layers0.length); 
+    })
+  .append("title")
+    .text(function(d) { return d[0].genre; });
+
+  svg.append("svg:g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis.tickSubdivide(0).tickSize(6));
+
+
+
+
+function transition() {
+  d3.selectAll("path")
+      .data(function() {
+        dataToUse = relativedata
+
+        max_year = 1980
+
+        for(var i = 0; i < relativedata.length; i++)
+        {
+          dataToUse[i].counts = dataToUse[i].counts.filter(function(item, i){
+          return item.year < max_year && item.year > min_year;
+        });
+        }
+
+        layers0 = stack(d3.range(dataToUse.length).map(function(d,i) { 
+       return dataToUse[i].counts.map(function(v, j){
+          return {x: v.year, y: v.count, genre: dataToUse[i].genre};
+        }); 
+    }));
+        return layers0;
+      })
+    .transition()
+      .duration(500)
+      .attr("d", area);
+}
+
+// Inspired by Lee Byron's test data generator.
+function bumpLayer(n) {
+
+  function bump(a) {
+    var x = 1 / (.1 + Math.random()),
+        y = 2 * Math.random() - .5,
+        z = 10 / (.1 + Math.random());
+    for (var i = 0; i < n; i++) {
+      var w = (i / n - y) * z;
+      a[i] += x * Math.exp(-w * w);
+    }
+  }
+
+  var a = [], i;
+  for (i = 0; i < n; ++i) a[i] = 0;
+  for (i = 0; i < 5; ++i) bump(a);
+  var test = a.map(function(d, i) { 
+    return {x: i, y: Math.max(0, d)}; 
+  });
+  return test;
+}
+
+</script>
