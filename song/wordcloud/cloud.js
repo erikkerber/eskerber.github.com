@@ -35,22 +35,33 @@ d3.select("#download-png").on("click", downloadPNG);
 
 var tabs = d3.select("#presets").selectAll("a")
     .data([
-      {fetcher: "http://search.twitter.com/search.json?rpp=100&q={word}", name: "Twitter"},
-      {fetcher: "http://api.twitter.com/1/statuses/user_timeline.json?screen_name={word}&count=200&trim_user=1", name: "Tweeps"},
-      {fetcher: "http://en.wikipedia.org/wiki/{word}", name: "Wikipedia"},
-      {fetcher: "", name: "Custom", id: "custom"}
+      {fetcher: rock, name: "Rock"},
+      {fetcher: rap, name: "Rap"},
+      {fetcher: blues, name: "Blues"},
+      {fetcher: country, name: "Country"},
+      {fetcher: disco, name: "Disco"},
+      {fetcher: jazz, name: "Jazz"},
+      {fetcher: metal, name: "Metal"},
+      {fetcher: pop, name: "Pop"},
+      {fetcher: reggae, name: "Reggae"},
+      {fetcher: techno, name: "Techno"},
+      {fetcher: alternative, name: "Alternative"}
     ])
   .enter().append("a")
     .classed("first", function(d, i) { return !i; })
     .attr("id", function(d) { return d.id; })
-    .attr("href", function(d) { return "#" + encodeURIComponent(d.fetcher); })
+    .attr("href", function(d) { 
+      
+      return "#" + generate(d.fetcher); 
+    })
     .text(function(d) { return d.name; })
     .on("click", function(d) {
-      var f = decodeURIComponent(d3.select(this).attr("href").substr(1)),
-          that = this;
-      if (f !== "") {
-        load(keyword, fetcher = f);
-      }
+      generate(d.fetcher)
+      //var f = decodeURIComponent(d3.select(this).attr("href").substr(1)),
+      //    that = this;
+      //if (f !== "") {
+      //  load(keyword, fetcher = f);
+     // }
       tabs.classed("active", function() { return this === that; });
       d3.select("#custom-area").style("display", d.id ? null : "none");
       d3.event.preventDefault();
@@ -154,11 +165,8 @@ function parseText(text) {
   generate();
 }
 
-function generate() {
-  if(!tags)
-    tags = myData;
-  else
-    tags = rock
+function generate(newTags) {
+  tags = newTags
 
   layout
       .font(d3.select("#font").property("value"))
@@ -260,7 +268,6 @@ function hashchange() {
 }
 
 function load(d, f) {
-  generate();
   return;
   f = f || fetcher;
   var h;

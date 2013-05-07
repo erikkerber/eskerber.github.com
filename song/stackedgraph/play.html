@@ -37,6 +37,11 @@ function getURLParameter(name) {
 var max_year = getURLParameter("max");
 var min_year = getURLParameter("min");
 
+if(max_year == "null")
+  max_year = 2010;
+if(min_year == "null")
+  min_year = 1950;
+
 dataToUse = relativedata;
 for(var i = 0; i < dataToUse.length; i++)
 {
